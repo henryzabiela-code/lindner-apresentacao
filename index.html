@@ -1,0 +1,509 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Apresentação Integração - Lindner AgroStore</title>
+  
+  <!-- Reveal.js core -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reset.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.css">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* LINDNER AGROSTORE BRANDING */
+    :root {
+      --primary-color: #1f8e9f; /* Lindner Teal */
+      --secondary-color: #006877; /* Darker Teal */
+      --accent-color: #f97316; /* Orange for highlights */
+      --bg-color: #ffffff;
+      --text-color: #1f2937;
+      --box-bg: #f3f4f6;
+    }
+
+    body, .reveal {
+      font-family: 'Open Sans', sans-serif;
+      background: var(--bg-color);
+      color: var(--text-color);
+    }
+
+    .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+      font-family: 'Montserrat', sans-serif;
+      text-transform: uppercase;
+      font-weight: 800;
+      color: var(--primary-color);
+      letter-spacing: 1px;
+    }
+
+    .reveal h1 { font-size: 3em; text-shadow: 2px 2px 4px rgba(0,0,0,0.1); }
+    .reveal h2 { font-size: 2.2em; margin-bottom: 20px; }
+    
+    .reveal p, .reveal li {
+      font-size: 0.9em;
+      line-height: 1.6;
+      color: var(--text-color);
+    }
+
+    .highlight { color: var(--secondary-color); font-weight: bold; }
+
+    /* Layout Helpers */
+    .flex-col { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; }
+    .flex-row { display: flex; flex-direction: row; align-items: stretch; justify-content: space-around; width: 100%; gap: 20px; }
+    
+    /* Boxes */
+    .box {
+      background: var(--box-bg);
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      border-left: 5px solid var(--primary-color);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      width: 100%;
+      text-align: left;
+    }
+    
+    /* Timeline Styling */
+    .timeline {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-top: 40px;
+      position: relative;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 30px;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--primary-color);
+      z-index: -1;
+      opacity: 0.3;
+    }
+    .timeline-item { flex: 1; text-align: center; position: relative; }
+    .timeline-year {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 1.2em;
+      color: #fff;
+      background: var(--primary-color);
+      border-radius: 50%;
+      width: 65px;
+      height: 65px;
+      line-height: 65px;
+      margin: 0 auto 15px auto;
+      box-shadow: 0 0 0 5px rgba(31, 142, 159, 0.2);
+    }
+    .timeline-content { font-size: 0.65em !important; }
+
+    /* Store Gallery */
+    .lojas-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+    .lojas-grid img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      border: 3px solid transparent;
+      transition: transform 0.3s;
+    }
+    .lojas-grid img:hover { transform: scale(1.05); border-color: var(--primary-color); }
+    .lojas-grid .span-2 { grid-column: span 2; }
+    
+    .loja-label {
+      font-size: 0.65em !important;
+      font-weight: 800;
+      margin-top: 5px;
+      color: var(--primary-color) !important;
+    }
+
+    /* Old Photos (Fixed Cropping) */
+    .old-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      align-items: center;
+    }
+    .old-gallery img {
+      width: 100%;
+      max-height: 250px;
+      object-fit: contain; /* FIX FOR DONA ROSE */
+      border-radius: 8px;
+      background: rgba(0,0,0,0.05); /* Soft background for contained images */
+      padding: 5px;
+    }
+
+    /* Team Integration Section */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+      margin-top: 20px;
+    }
+    .team-member {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      background: #f9fafb;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      border-left: 5px solid var(--accent-color);
+    }
+    .team-member img {
+      width: 120px;
+      height: 120px;
+      object-fit: contain; /* NO CROPPING */
+      border-radius: 10px;
+      margin-right: 20px;
+      background: #fff;
+      padding: 5px;
+      box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+    }
+    .team-member div { text-align: left; }
+
+    /* Icon Lists */
+    .icon-list { list-style: none !important; padding: 0; margin: 0 !important; }
+    .icon-list li { margin-bottom: 12px; display: flex; align-items: flex-start; text-align: left; }
+    .icon-list i { color: var(--secondary-color); font-size: 1.2em; margin-right: 15px; width: 25px; text-align: center; margin-top: 3px; }
+
+    /* Dark Slide Overrides */
+    .dark-slide { background: var(--primary-color) !important; color: #fff !important; }
+    .dark-slide h1, .dark-slide h2, .dark-slide h3, .dark-slide p, .dark-slide li { color: #fff !important; }
+    .dark-slide .highlight { color: #fff; font-weight: 900; }
+    .dark-slide .box { background: rgba(255,255,255,0.1); border-left: 5px solid #fff; color: #fff; }
+
+    /* RESPONSIVE DESIGN */
+    @media (max-width: 768px) {
+      .reveal h1 { font-size: 2.2em !important; }
+      .reveal h2 { font-size: 1.6em !important; }
+      .reveal h3 { font-size: 1.3em !important; }
+      .reveal p, .reveal li { font-size: 0.75em !important; line-height: 1.4 !important; }
+      
+      .flex-row { flex-direction: column !important; gap: 10px !important; }
+      .box { width: 100% !important; padding: 15px !important; margin: 5px 0 !important; }
+      
+      .lojas-grid, .old-gallery { grid-template-columns: repeat(2, 1fr) !important; gap: 10px !important; }
+      .lojas-grid .span-2 { grid-column: span 1; }
+      
+      .team-grid { grid-template-columns: 1fr !important; gap: 15px !important; }
+      
+      .timeline { flex-direction: column !important; align-items: flex-start !important; margin-top: 20px !important; }
+      .timeline::before { left: 32px !important; top: 0 !important; width: 3px !important; height: 100% !important; }
+      .timeline-item { width: 100% !important; text-align: left !important; padding-left: 80px !important; margin-bottom: 20px !important; min-height: 65px; }
+      .timeline-year { position: absolute !important; left: 0 !important; top: 0 !important; margin: 0 !important; width: 65px; height: 65px; line-height: 65px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      
+      <!-- Slide 1: Welcome -->
+      <section data-transition="zoom">
+        <div class="flex-col">
+          <img src="./assets/logo.png" alt="Lindner Logo" style="max-height: 180px; margin-bottom: 20px; box-shadow: none; border: none; background: transparent;">
+          <h1>SEJA BEM-VINDO(A)!</h1>
+          <h3>À EQUIPE <span class="highlight">LINDNER</span> AGROSTORE</h3>
+          <p>Preparados para fazer a diferença na vida dos pets?</p>
+        </div>
+      </section>
+
+      <!-- Slide 2: Nossa História -->
+      <section data-transition="slide">
+        <h2>Nossa <span class="highlight">História</span></h2>
+        <div class="flex-row">
+          <div class="box">
+            <p><i class="fa-solid fa-calendar-days highlight"></i> <strong>Dezembro de 1993</strong><br>A LINDNER AgroStore inicia sua trajetória.</p>
+            <p><i class="fa-solid fa-people-roof highlight"></i> Uma empresa <strong>familiar</strong> que começou com poucos recursos, mas muita vontade de crescer.</p>
+          </div>
+          <div class="box">
+            <p><i class="fa-solid fa-users highlight"></i> <strong>Os Fundadores:</strong><br>Gerenciada por Roselaine e Sérgio, com apoio do Adélcio.</p>
+            <p><i class="fa-solid fa-truck-fast highlight"></i> <strong>Fernando (Fundador)</strong> realizava as vendas de aves viajando pelo Rio Grande do Sul.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 3: Linha do Tempo (Parte 1) -->
+      <section data-transition="convex">
+        <h2>Linha do <span class="highlight">Tempo</span></h2>
+        <div class="timeline">
+          <div class="timeline-item fragment fade-up">
+            <div class="timeline-year">1993</div>
+            <div class="timeline-content">
+              <strong class="highlight">Aviário Cantagalo</strong><br>Ovos, Aves, Bebidas
+            </div>
+          </div>
+          <div class="timeline-item fragment fade-up">
+            <div class="timeline-year">1998</div>
+            <div class="timeline-content">
+              <strong class="highlight">Comércio Lindner</strong><br>Ramo Pet
+            </div>
+          </div>
+          <div class="timeline-item fragment fade-up">
+            <div class="timeline-year">2002</div>
+            <div class="timeline-content">
+              <strong class="highlight">Expansão</strong><br>Medicamentos
+            </div>
+          </div>
+          <div class="timeline-item fragment fade-up">
+            <div class="timeline-year">2006</div>
+            <div class="timeline-content">
+              <strong class="highlight">Agropecuária</strong><br>Início Entregas
+            </div>
+          </div>
+          <div class="timeline-item fragment fade-up">
+            <div class="timeline-year">2010</div>
+            <div class="timeline-content">
+              <strong class="highlight">Mais Pets</strong><br>Acessórios
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 4: Linha do Tempo (Parte 2) -->
+      <section data-transition="convex">
+        <h2>A Era <span class="highlight">AgroStore</span></h2>
+        <div class="timeline">
+          <div class="timeline-item fragment fade-up">
+            <div class="timeline-year">2014</div>
+            <div class="timeline-content">
+              <strong class="highlight">AgroStore</strong><br>Consultório Vet
+            </div>
+          </div>
+          <div class="timeline-item fragment fade-up">
+            <div class="timeline-year">2020</div>
+            <div class="timeline-content">
+              <strong class="highlight">1ª Filial</strong><br>Protásio Alves
+            </div>
+          </div>
+          <div class="timeline-item fragment fade-up">
+            <div class="timeline-year">2022</div>
+            <div class="timeline-content">
+              <strong class="highlight">2ª Filial</strong><br>Antônio de C.
+            </div>
+          </div>
+          <div class="timeline-item fragment fade-up">
+            <div class="timeline-year">2024</div>
+            <div class="timeline-content">
+              <strong class="highlight">3ª Filial</strong><br>Lomba do P.
+            </div>
+          </div>
+          <div class="timeline-item fragment fade-up">
+            <div class="timeline-year" style="background: var(--accent-color);">2025</div>
+            <div class="timeline-content">
+              <strong class="highlight">4ª Filial</strong><br>Viamão
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 5: Nossas Lojas -->
+      <section data-transition="slide">
+        <h2>Nossas <span class="highlight">Lojas</span></h2>
+        <div class="lojas-grid">
+          <div class="fragment fade-up">
+            <img src="./assets/lojas/matriz.jpeg" alt="Matriz">
+            <p class="loja-label"><i class="fa-solid fa-store"></i> MATRIZ<br>Lomba do Pinheiro (P.16)</p>
+          </div>
+          <div class="fragment fade-up">
+            <img src="./assets/lojas/filial1.jpeg" alt="Filial 1">
+            <p class="loja-label"><i class="fa-solid fa-store"></i> FILIAL 1<br>Protásio Alves</p>
+          </div>
+          <div class="fragment fade-up">
+            <img src="./assets/lojas/filial2.jpeg" alt="Filial 2">
+            <p class="loja-label"><i class="fa-solid fa-store"></i> FILIAL 2<br>Antônio de Carvalho</p>
+          </div>
+          <div class="fragment fade-up">
+            <img src="./assets/lojas/filial3.jpeg" alt="Filial 3">
+            <p class="loja-label"><i class="fa-solid fa-store"></i> FILIAL 3<br>Lomba do Pinheiro (P.7)</p>
+          </div>
+          <div class="fragment fade-up span-2">
+            <img src="./assets/lojas/filial4.jpeg" alt="Filial 4">
+            <p class="loja-label" style="color: var(--accent-color) !important;"><i class="fa-solid fa-rocket"></i> FILIAL 4<br>Viamão (2025)</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 6: Evolução (Old Photos) -->
+      <section data-transition="zoom" data-background-color="#f3f4f6">
+        <h2>Nossa <span class="highlight">Evolução</span></h2>
+        <p>Lembrar de onde viemos para saber onde podemos chegar.</p>
+        <div class="old-gallery">
+          <img src="./assets/foto_antiga_01.jpeg" alt="Antigamente 1" class="fragment fade-in">
+          <img src="./assets/foto_antiga_02.jpeg" alt="Antigamente 2" class="fragment fade-in">
+          <img src="./assets/foto_antiga_03.jpeg" alt="Antigamente 3" class="fragment fade-in">
+          <img src="./assets/foto_antiga_04.jpeg" alt="Antigamente 4" class="fragment fade-in">
+          <img src="./assets/foto_antiga_05.jpeg" alt="Antigamente 5" class="fragment fade-in">
+          <img src="./assets/foto_antiga_06.jpeg" alt="Antigamente 6" class="fragment fade-in">
+        </div>
+      </section>
+
+      <!-- Slide 7: Essência -->
+      <section data-transition="slide" class="dark-slide">
+        <h2>Nossa Essência</h2>
+        <div class="flex-row">
+          <div class="box" style="width: 50%;">
+            <h3><i class="fa-solid fa-bullseye highlight"></i> Missão</h3>
+            <p style="font-size: 0.85em;">Proporcionar qualidade à vida dos Pets e suas famílias através de produtos de excelência e um serviço amoroso.</p>
+            
+            <h3 style="margin-top: 20px;"><i class="fa-solid fa-eye highlight"></i> Visão</h3>
+            <p style="font-size: 0.85em;">Ser líder no mercado Pet na região da grande Porto Alegre, inovando em produtos e serviços.</p>
+          </div>
+          <div class="box" style="width: 50%;">
+            <h3><i class="fa-solid fa-heart highlight"></i> Valores</h3>
+            <ul class="icon-list" style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 0.8em;">
+              <li><i class="fa-solid fa-check"></i> Respeito</li>
+              <li><i class="fa-solid fa-check"></i> Responsabilidade</li>
+              <li><i class="fa-solid fa-check"></i> Cuidado</li>
+              <li><i class="fa-solid fa-check"></i> Transparência</li>
+              <li><i class="fa-solid fa-check"></i> Agilidade</li>
+              <li><i class="fa-solid fa-check"></i> Cooperação</li>
+              <li><i class="fa-solid fa-check"></i> Amor</li>
+              <li><i class="fa-solid fa-check"></i> Educação</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 8: Regras -->
+      <section data-transition="convex">
+        <h2>Nossos <span class="highlight">Combinados</span></h2>
+        <div class="box" style="max-width: 800px; margin: 0 auto;">
+          <ul class="icon-list">
+            <li class="fragment fade-left"><i class="fa-solid fa-mobile-screen-button"></i> Evite o uso do celular pessoal durante o expediente.</li>
+            <li class="fragment fade-left"><i class="fa-solid fa-ban"></i> Evite comer em seu local de trabalho.</li>
+            <li class="fragment fade-left"><i class="fa-solid fa-shirt"></i> Uniforme sempre limpo e alinhado (não usar boné).</li>
+            <li class="fragment fade-left"><i class="fa-solid fa-user-tie"></i> RH: Trajes adequados ao ambiente de trabalho.</li>
+            <li class="fragment fade-left"><i class="fa-solid fa-circle-question"></i> Dúvidas? Procure sempre o líder de loja ou setor.</li>
+            <li class="fragment fade-left"><i class="fa-solid fa-triangle-exclamation"></i> Atos de indisciplina serão avaliados.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Slide 9: Benefícios -->
+      <section data-transition="slide" data-background-color="#f3f4f6">
+        <h2>Seus <span class="highlight">Benefícios</span></h2>
+        <div class="lojas-grid" style="grid-template-columns: repeat(3, 1fr);">
+          <div class="box" style="text-align: center;">
+            <i class="fa-solid fa-bus" style="font-size: 2.5em; color: var(--primary-color);"></i>
+            <h4 style="margin-top:10px; font-size: 0.8em;">Vale Transporte</h4>
+            <p style="font-size: 0.65em; margin: 0;">Cartão TRI / TEU</p>
+          </div>
+          <div class="box" style="text-align: center;">
+            <i class="fa-solid fa-basket-shopping" style="font-size: 2.5em; color: var(--primary-color);"></i>
+            <h4 style="margin-top:10px; font-size: 0.8em;">Cesta Básica</h4>
+            <p style="font-size: 0.65em; margin: 0;">Sem faltas/atrasos (Tol. 5min)</p>
+          </div>
+          <div class="box" style="text-align: center;">
+            <i class="fa-solid fa-trophy" style="font-size: 2.5em; color: var(--accent-color);"></i>
+            <h4 style="margin-top:10px; font-size: 0.8em; color: var(--accent-color);">Premiações</h4>
+            <p style="font-size: 0.65em; margin: 0;">Cartão Swile todo dia 10</p>
+          </div>
+          <div class="box" style="text-align: center;">
+            <i class="fa-solid fa-cake-candles" style="font-size: 2.5em; color: var(--primary-color);"></i>
+            <h4 style="margin-top:10px; font-size: 0.8em;">Jantar Especial</h4>
+            <p style="font-size: 0.65em; margin: 0;">Aniversariante + 1</p>
+          </div>
+          <div class="box" style="text-align: center;">
+            <i class="fa-solid fa-tags" style="font-size: 2.5em; color: var(--primary-color);"></i>
+            <h4 style="margin-top:10px; font-size: 0.8em;">20% Desconto</h4>
+            <p style="font-size: 0.65em; margin: 0;">Nas lojas (Limite R$ 350)</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 10: DP Info -->
+      <section data-transition="convex">
+        <h2>Informações do <span class="highlight">DP</span></h2>
+        <div class="box" style="max-width: 900px; margin: 0 auto; padding: 30px;">
+          <ul class="icon-list" style="font-size: 0.9em;">
+            <li><i class="fa-solid fa-money-bill-transfer"></i> <strong>Pagamento:</strong> Via PIX, no último dia útil do mês.</li>
+            <li><i class="fa-solid fa-calendar-xmark"></i> <strong>Faltas:</strong> Sinalizar sempre o líder de loja.</li>
+            <li><i class="fa-solid fa-shirt"></i> <strong>Uniforme:</strong> 3 camisetas, 1 jaqueta, 1 moletom.<br><span style="font-size: 0.8em; color: #666; margin-left: 40px;">Sugestão de uso com calça jeans (sem rasgos) ou calça preta lisa.</span></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Slide 11: Novos Membros -->
+      <section data-transition="zoom">
+        <h2>Sejam Muito <span class="highlight">Bem-Vindos!</span></h2>
+        <p>O time Lindner cresceu! Estes são os nossos novos talentos:</p>
+        
+        <div class="team-grid">
+          <div class="team-member fragment fade-right">
+            <img src="./assets/equipe/Renan.jpeg" alt="Renan">
+            <div>
+              <h4 style="margin: 0; font-size: 1.2em;">Renan</h4>
+              <p style="font-size: 0.8em; margin: 0; color: var(--primary-color);">Novo Talento</p>
+            </div>
+          </div>
+          
+          <div class="team-member fragment fade-left">
+            <img src="./assets/equipe/Daniel.jpeg" alt="Daniel">
+            <div>
+              <h4 style="margin: 0; font-size: 1.2em;">Daniel</h4>
+              <p style="font-size: 0.8em; margin: 0; color: var(--primary-color);">Novo Talento</p>
+            </div>
+          </div>
+          
+          <div class="team-member fragment fade-right">
+            <img src="./assets/equipe/Amanda1.jpeg" alt="Amanda">
+            <div>
+              <h4 style="margin: 0; font-size: 1.2em;">Amanda</h4>
+              <p style="font-size: 0.8em; margin: 0; color: var(--primary-color);">Novo Talento</p>
+            </div>
+          </div>
+          
+          <div class="team-member fragment fade-left">
+            <img src="./assets/equipe/Amanda2.jpeg" alt="Amanda">
+            <div>
+              <h4 style="margin: 0; font-size: 1.2em;">Amanda</h4>
+              <p style="font-size: 0.8em; margin: 0; color: var(--primary-color);">Novo Talento</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Slide 12: Fim -->
+      <section data-transition="slide" class="dark-slide">
+        <h1 style="font-size: 3em !important; color: #fff !important;">MUITO SUCESSO!</h1>
+        <h3 style="color: #fff !important;">Juntos somos <span style="font-weight: 900; text-decoration: underline;">LINDNER</span></h3>
+        <br>
+        <img src="./assets/logo.png" alt="Lindner Logo" style="max-height: 120px; background: #fff; padding: 10px; border-radius: 10px; box-shadow: none;">
+      </section>
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      controls: true,
+      progress: true,
+      center: true,
+      transition: 'slide',
+      backgroundTransition: 'fade',
+      width: 1024,
+      height: 768,
+      margin: 0.04,
+      minScale: 0.2,
+      maxScale: 2.0
+    });
+  </script>
+</body>
+</html>
