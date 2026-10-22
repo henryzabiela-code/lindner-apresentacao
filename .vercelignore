@@ -1,0 +1,7 @@
+*.pptx
+.netlify
+.token-optimizer
+fix.py
+deploy.bat
+.env*
+.vercel
