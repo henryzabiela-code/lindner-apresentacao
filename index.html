@@ -174,6 +174,8 @@
       box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
     }
     .team-member div { text-align: left; }
+    /* Odd count: center the last card */
+    .team-member:last-child:nth-child(odd) { grid-column: 1 / -1; justify-self: center; width: calc(50% - 15px); }
 
     /* Icon Lists */
     .icon-list { list-style: none !important; padding: 0; margin: 0 !important; }
@@ -200,6 +202,7 @@
       .lojas-grid .span-2 { grid-column: span 1; }
       
       .team-grid { grid-template-columns: 1fr !important; gap: 15px !important; }
+      .team-member:last-child:nth-child(odd) { width: 100%; }
       
       .timeline { flex-direction: column !important; align-items: flex-start !important; margin-top: 20px !important; }
       .timeline::before { left: 32px !important; top: 0 !important; width: 3px !important; height: 100% !important; }
@@ -445,33 +448,25 @@
         
         <div class="team-grid">
           <div class="team-member fragment fade-right">
-            <img src="./assets/equipe/Renan.jpeg" alt="Renan">
+            <img src="./assets/equipe/Misael.jpg" alt="Misael">
             <div>
-              <h4 style="margin: 0; font-size: 1.2em;">Renan</h4>
+              <h4 style="margin: 0; font-size: 1.2em;">Misael</h4>
               <p style="font-size: 0.8em; margin: 0; color: var(--primary-color);">Novo Talento</p>
             </div>
           </div>
-          
+
           <div class="team-member fragment fade-left">
-            <img src="./assets/equipe/Daniel.jpeg" alt="Daniel">
+            <img src="./assets/equipe/Joao.jpg" alt="João">
             <div>
-              <h4 style="margin: 0; font-size: 1.2em;">Daniel</h4>
+              <h4 style="margin: 0; font-size: 1.2em;">João</h4>
               <p style="font-size: 0.8em; margin: 0; color: var(--primary-color);">Novo Talento</p>
             </div>
           </div>
-          
-          <div class="team-member fragment fade-right">
-            <img src="./assets/equipe/Amanda1.jpeg" alt="Amanda">
+
+          <div class="team-member fragment fade-up">
+            <img src="./assets/equipe/William.jpg" alt="William">
             <div>
-              <h4 style="margin: 0; font-size: 1.2em;">Amanda</h4>
-              <p style="font-size: 0.8em; margin: 0; color: var(--primary-color);">Novo Talento</p>
-            </div>
-          </div>
-          
-          <div class="team-member fragment fade-left">
-            <img src="./assets/equipe/Amanda2.jpeg" alt="Amanda">
-            <div>
-              <h4 style="margin: 0; font-size: 1.2em;">Amanda</h4>
+              <h4 style="margin: 0; font-size: 1.2em;">William</h4>
               <p style="font-size: 0.8em; margin: 0; color: var(--primary-color);">Novo Talento</p>
             </div>
           </div>
